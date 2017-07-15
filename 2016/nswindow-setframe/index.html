@@ -75,7 +75,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="macOS,objc," />
+  <meta name="keywords" content="objc,macOS," />
 
 
 
@@ -94,10 +94,10 @@
 
 
 <meta name="description" content="在macOS的开发中，我们一般使用NSWindow的setFrame来改变窗体的坐标和大小，而坐标和大小一般是靠动态计算得出，这里要讲讲setFrame的一些坑。 我们知道NSRect里的origin和size都是浮点型的，而像素点是整数的，没有说0.5个像素的，真要有0.5像素，在屏幕上的表现要么是0，要么就是1。下面我们来做个小实验： 我们先创建一个window123_window = [[N">
-<meta name="keywords" content="macOS,objc">
+<meta name="keywords" content="objc,macOS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NSWindow.setFrame的坑">
-<meta property="og:url" content="https://shalyf.github.io/2016/01/25/nswindow-setframe/index.html">
+<meta property="og:url" content="https://shalyf.github.io/2016/nswindow-setframe/index.html">
 <meta property="og:site_name" content="Easher&#39; Blog">
 <meta property="og:description" content="在macOS的开发中，我们一般使用NSWindow的setFrame来改变窗体的坐标和大小，而坐标和大小一般是靠动态计算得出，这里要讲讲setFrame的一些坑。 我们知道NSRect里的origin和size都是浮点型的，而像素点是整数的，没有说0.5个像素的，真要有0.5像素，在屏幕上的表现要么是0，要么就是1。下面我们来做个小实验： 我们先创建一个window123_window = [[N">
 <meta property="og:updated_time" content="2017-07-14T15:33:13.000Z">
@@ -131,7 +131,7 @@
 
 
 
-  <link rel="canonical" href="https://shalyf.github.io/2016/01/25/nswindow-setframe/"/>
+  <link rel="canonical" href="https://shalyf.github.io/2016/nswindow-setframe/"/>
 
 
 
@@ -208,16 +208,6 @@
         </li>
       
         
-        <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
-        
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
@@ -228,22 +218,22 @@
         </li>
       
         
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
             标签
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            关于
           </a>
         </li>
       
@@ -276,7 +266,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://shalyf.github.io/2016/01/25/nswindow-setframe/">
+    <link itemprop="mainEntityOfPage" href="https://shalyf.github.io/2016/nswindow-setframe/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Easher">
@@ -410,9 +400,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/macOS/" rel="tag"># macOS</a>
-          
             <a href="/tags/objc/" rel="tag"># objc</a>
+          
+            <a href="/tags/macOS/" rel="tag"># macOS</a>
           
         </div>
       
@@ -425,7 +415,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/01/23/nswindow-full-size-content-view/" rel="next" title="让自定义view铺满整个NSWindow">
+              <a href="/2016/nswindow-full-size-content-view/" rel="next" title="让自定义view铺满整个NSWindow">
                 <i class="fa fa-chevron-left"></i> 让自定义view铺满整个NSWindow
               </a>
             
@@ -435,7 +425,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/02/01/mouse-event/" rel="prev" title="鼠标事件响应">
+              <a href="/2016/mouse-event/" rel="prev" title="鼠标事件响应">
                 鼠标事件响应 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -492,7 +482,7 @@
                alt="Easher" />
           <p class="site-author-name" itemprop="name">Easher</p>
            
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-description motion-element" itemprop="description">iOS / macOS 开发者</p>
           
         </div>
         <nav class="site-state motion-element">
