@@ -266,6 +266,175 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://shalyf.github.io/2017/convert-pngs-to-tiff/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Easher">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Easher' Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/convert-pngs-to-tiff/" itemprop="url">
+                  多张PNG图片合并成一张TIFF
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-15T22:30:04+08:00">
+                2017-07-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Apple/" itemprop="url" rel="index">
+                    <span itemprop="name">Apple</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/convert-pngs-to-tiff/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2017/convert-pngs-to-tiff/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><code>iOS</code>和<code>macOS</code>开发中常用<code>PNG</code>文件作为图片资源，我们常使用<code>imageNamed</code>来使用图片资源，一般大家的做法都是让<code>UI</code>切图的时候给三个文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">icon@1x.png</div><div class="line">icon@2x.png</div><div class="line">icon@3x.png</div></pre></td></tr></table></figure>
+<p>但是有时候情况特殊，你只能使用一个文件，比如在<code>Apple Script</code>中使用图片，那怎么办呢，经常接触<code>macOS</code>的人应该都见过<code>TIFF</code></p>
+<blockquote>
+<p>TIFF是一个灵活适应性强的文件格式。通过在文件标头中使用“标签”，它能够在一个文件中处理多幅图像和数据。<br><a href="https://zh.wikipedia.org/wiki/TIFF#.E7.81.B5.E6.B4.BB.E7.9A.84.E9.80.89.E9.A1.B9" target="_blank" rel="external">维基百科</a></p>
+</blockquote>
+<p>注意，<code>TIFF</code>是支持多页的，可以用一个<code>TIFF</code>文件包含上面的三幅图像，那怎么把三张<code>PNG</code>变成一张<code>TIFF</code>呢，我们有<code>ImageMagick</code></p>
+<blockquote>
+<p>ImageMagick是一个用于查看、编辑位图文件以及进行图像格式转换的开放源代码软件套装。它可以读取、编辑超过100种图象格式。<br>ImageMagick最基本的一个功能是准确高效地转换超过68种图片的格式，包括众所周知的TIFF、JPEG、PNG、PDF、PhotoCD，以及GIF。<br><a href="https://zh.wikipedia.org/wiki/ImageMagick#.E6.96.87.E4.BB.B6.E6.A0.BC.E5.BC.8F.E8.BD.AC.E6.8D.A2" target="_blank" rel="external">维基百科</a></p>
+</blockquote>
+<p><code>ImageMagick</code>可以用<a href="https://brew.sh" target="_blank" rel="external">HomeBrew</a>快速安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ brew install imagemagick</div></pre></td></tr></table></figure>
+<p><code>convert</code>是<code>ImageMagick</code>用于转换图片格式的工具</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ convert icon@1x.png icon@2x.png icon@3x.png icon.tiff</div></pre></td></tr></table></figure>
+<p>现在我们获得了<code>icon.tiff</code>这个文件，用自带的预览工具打开即可看到它包含了三幅图像，目标达成！</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://shalyf.github.io/2016/mouse-event/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -328,8 +497,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/macOS/" itemprop="url" rel="index">
-                    <span itemprop="name">macOS</span>
+                  <a href="/categories/Apple/" itemprop="url" rel="index">
+                    <span itemprop="name">Apple</span>
                   </a>
                 </span>
 
@@ -377,7 +546,7 @@
       
         
           <p><code>NSResponder</code>提供了鼠标响应事件，而所有的视图都继承自<code>NSResponder</code>，所以我们可以很方便的处理鼠标事件。</p>
-<h2 id="鼠标一般事件"><a href="#鼠标一般事件" class="headerlink" title="鼠标一般事件"></a>鼠标一般事件</h2><p>鼠标一般事件有按下和松开，又有左右键和其它键之分(本文只讲述左右键)，对应的消息如下：</p>
+<h2 id="鼠标一般事件"><a href="#鼠标一般事件" class="headerlink" title="鼠标一般事件"></a>鼠标一般事件</h2><p>鼠标一般事件有按下和松开，又有左右键和其它键之分(本文只讨论左右键)，对应的消息如下：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 按下鼠标左键</span></div><div class="line">- (<span class="keyword">void</span>)mouseDown:(<span class="built_in">NSEvent</span> *)theEvent;</div><div class="line"><span class="comment">// 松开鼠标左键</span></div><div class="line">- (<span class="keyword">void</span>)mouseUp:(<span class="built_in">NSEvent</span> *)theEvent;</div><div class="line"><span class="comment">// 按下鼠标右键</span></div><div class="line">- (<span class="keyword">void</span>)rightMouseDown:(<span class="built_in">NSEvent</span> *)theEvent;</div><div class="line"><span class="comment">// 松开鼠标右键</span></div><div class="line">- (<span class="keyword">void</span>)rightMouseUp:(<span class="built_in">NSEvent</span> *)theEvent;</div></pre></td></tr></table></figure>
 <p>鼠标点击后，<code>NSEvent</code>捕获到的坐标是基于<code>Window</code>的，所以需要经过转换才能使用。</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)mouseDown:(<span class="built_in">NSEvent</span> *)theEvent &#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     *  将mouseDown消息传递给父类</div><div class="line">     *  注意，如果写了这句的话，mouseUp事件将不会触发</div><div class="line">     */</div><div class="line">    [<span class="keyword">super</span> mouseDown:theEvent];</div><div class="line"></div><div class="line">    <span class="comment">// 将鼠标点击位置的坐标从Window转换为当前View，fromView设为nil表示从Window转换</span></div><div class="line">    <span class="built_in">NSPoint</span> location = [<span class="keyword">self</span> convertPoint:theEvent.locationInWindow fromView:<span class="literal">nil</span>];</div><div class="line">    </div><div class="line">    <span class="comment">// doing something</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -491,8 +660,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/macOS/" itemprop="url" rel="index">
-                    <span itemprop="name">macOS</span>
+                  <a href="/categories/Apple/" itemprop="url" rel="index">
+                    <span itemprop="name">Apple</span>
                   </a>
                 </span>
 
@@ -656,8 +825,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/macOS/" itemprop="url" rel="index">
-                    <span itemprop="name">macOS</span>
+                  <a href="/categories/Apple/" itemprop="url" rel="index">
+                    <span itemprop="name">Apple</span>
                   </a>
                 </span>
 
@@ -816,8 +985,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/macOS/" itemprop="url" rel="index">
-                    <span itemprop="name">macOS</span>
+                  <a href="/categories/Mono/" itemprop="url" rel="index">
+                    <span itemprop="name">Mono</span>
                   </a>
                 </span>
 
@@ -977,8 +1146,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/macOS/" itemprop="url" rel="index">
-                    <span itemprop="name">macOS</span>
+                  <a href="/categories/Mono/" itemprop="url" rel="index">
+                    <span itemprop="name">Mono</span>
                   </a>
                 </span>
 
@@ -1113,7 +1282,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1124,7 +1293,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1135,7 +1304,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

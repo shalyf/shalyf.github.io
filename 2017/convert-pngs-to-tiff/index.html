@@ -75,7 +75,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="macOS,objc," />
+  <meta name="keywords" content="macOS," />
 
 
 
@@ -93,17 +93,17 @@
 
 
 
-<meta name="description" content="在macOS的开发中，我们一般使用NSWindow的setFrame来改变窗体的坐标和大小，而坐标和大小一般是靠动态计算得出，这里要讲讲setFrame的一些坑。 我们知道NSRect里的origin和size都是浮点型的，而像素点是整数的，没有说0.5个像素的，真要有0.5像素，在屏幕上的表现要么是0，要么就是1。下面我们来做个小实验： 我们先创建一个window123_window = [[N">
-<meta name="keywords" content="macOS,objc">
+<meta name="description" content="iOS和macOS开发中常用PNG文件作为图片资源，我们常使用imageNamed来使用图片资源，一般大家的做法都是让UI切图的时候给三个文件 123icon@1x.pngicon@2x.pngicon@3x.png 但是有时候情况特殊，你只能使用一个文件，比如在Apple Script中使用图片，那怎么办呢，经常接触macOS的人应该都见过TIFF  TIFF是一个灵活适应性强的文件格式。通过在">
+<meta name="keywords" content="macOS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="NSWindow.setFrame的坑">
-<meta property="og:url" content="https://shalyf.github.io/2016/nswindow-setframe/index.html">
+<meta property="og:title" content="多张PNG图片合并成一张TIFF">
+<meta property="og:url" content="https://shalyf.github.io/2017/convert-pngs-to-tiff/index.html">
 <meta property="og:site_name" content="Easher&#39; Blog">
-<meta property="og:description" content="在macOS的开发中，我们一般使用NSWindow的setFrame来改变窗体的坐标和大小，而坐标和大小一般是靠动态计算得出，这里要讲讲setFrame的一些坑。 我们知道NSRect里的origin和size都是浮点型的，而像素点是整数的，没有说0.5个像素的，真要有0.5像素，在屏幕上的表现要么是0，要么就是1。下面我们来做个小实验： 我们先创建一个window123_window = [[N">
-<meta property="og:updated_time" content="2017-07-15T15:06:34.000Z">
+<meta property="og:description" content="iOS和macOS开发中常用PNG文件作为图片资源，我们常使用imageNamed来使用图片资源，一般大家的做法都是让UI切图的时候给三个文件 123icon@1x.pngicon@2x.pngicon@3x.png 但是有时候情况特殊，你只能使用一个文件，比如在Apple Script中使用图片，那怎么办呢，经常接触macOS的人应该都见过TIFF  TIFF是一个灵活适应性强的文件格式。通过在">
+<meta property="og:updated_time" content="2017-07-15T15:47:12.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="NSWindow.setFrame的坑">
-<meta name="twitter:description" content="在macOS的开发中，我们一般使用NSWindow的setFrame来改变窗体的坐标和大小，而坐标和大小一般是靠动态计算得出，这里要讲讲setFrame的一些坑。 我们知道NSRect里的origin和size都是浮点型的，而像素点是整数的，没有说0.5个像素的，真要有0.5像素，在屏幕上的表现要么是0，要么就是1。下面我们来做个小实验： 我们先创建一个window123_window = [[N">
+<meta name="twitter:title" content="多张PNG图片合并成一张TIFF">
+<meta name="twitter:description" content="iOS和macOS开发中常用PNG文件作为图片资源，我们常使用imageNamed来使用图片资源，一般大家的做法都是让UI切图的时候给三个文件 123icon@1x.pngicon@2x.pngicon@3x.png 但是有时候情况特殊，你只能使用一个文件，比如在Apple Script中使用图片，那怎么办呢，经常接触macOS的人应该都见过TIFF  TIFF是一个灵活适应性强的文件格式。通过在">
 
 
 
@@ -131,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="https://shalyf.github.io/2016/nswindow-setframe/"/>
+  <link rel="canonical" href="https://shalyf.github.io/2017/convert-pngs-to-tiff/"/>
 
 
 
 
 
-  <title> NSWindow.setFrame的坑 | Easher' Blog </title>
+  <title> 多张PNG图片合并成一张TIFF | Easher' Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -266,7 +266,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://shalyf.github.io/2016/nswindow-setframe/">
+    <link itemprop="mainEntityOfPage" href="https://shalyf.github.io/2017/convert-pngs-to-tiff/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Easher">
@@ -287,7 +287,7 @@
             
             
               
-                NSWindow.setFrame的坑
+                多张PNG图片合并成一张TIFF
               
             
           </h1>
@@ -302,8 +302,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-01-25T16:32:05+08:00">
-                2016-01-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-15T22:30:04+08:00">
+                2017-07-15
               </time>
             
 
@@ -344,8 +344,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2016/nswindow-setframe/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2016/nswindow-setframe/" itemprop="commentsCount"></span>
+                <a href="/2017/convert-pngs-to-tiff/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2017/convert-pngs-to-tiff/" itemprop="commentsCount"></span>
                 </a>
               </span>
               <!--/noindex-->
@@ -372,17 +372,21 @@
       
 
       
-        <p>在<code>macOS</code>的开发中，我们一般使用<code>NSWindow</code>的<code>setFrame</code>来改变窗体的坐标和大小，而坐标和大小一般是靠动态计算得出，这里要讲讲<code>setFrame</code>的一些坑。</p>
-<p>我们知道<code>NSRect</code>里的<code>origin</code>和<code>size</code>都是浮点型的，而像素点是整数的，没有说<code>0.5</code>个像素的，真要有<code>0.5</code>像素，在屏幕上的表现要么是<code>0</code>，要么就是<code>1</code>。下面我们来做个小实验：</p>
-<p>我们先创建一个<code>window</code><br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">_window = [[<span class="built_in">NSWindow</span> alloc] initWithContentRect:<span class="built_in">NSMakeRect</span>(<span class="number">450</span>, <span class="number">250</span>, <span class="number">400</span>, <span class="number">300</span>) styleMask:<span class="built_in">NSTitledWindowMask</span> | <span class="built_in">NSClosableWindowMask</span> backing:<span class="built_in">NSBackingStoreBuffered</span> defer:<span class="literal">YES</span>];</div><div class="line">[_window makeKeyAndOrderFront:<span class="keyword">self</span>];</div><div class="line">LogRect(<span class="string">@"window.frame"</span>, _window.frame);</div></pre></td></tr></table></figure></p>
-<p>输出如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">window.frame: &#123;450.00,250.00,400.00,322.00&#125;</div></pre></td></tr></table></figure></p>
-<p>可以看到，除了高度之外，其它值都按照我们提供的参数执行，至于高度为什么多了<code>22</code>，是因为我们设置了<code>NSTitledWindowMask</code>这个<code>styleMask</code>，窗体需要标题栏，高度为<code>22</code>。</p>
-<p>接着通过<code>setFrame</code>来改变<code>window</code>的大小<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[_window setFrame:<span class="built_in">NSMakeRect</span>(<span class="number">450</span>, <span class="number">250</span>, <span class="number">400.5</span>, <span class="number">300</span>) display:<span class="literal">YES</span>];</div><div class="line">LogRect(<span class="string">@"window.changeSize"</span>, _window.frame);</div></pre></td></tr></table></figure></p>
-<p>输出如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">window.changeSize: &#123;450.00,250.00,401.00,300.00&#125;</div></pre></td></tr></table></figure></p>
-<p>可以看到<code>400.5</code>被改成了<code>401</code>，难道<code>NSWindow</code>会把提供的值四舍五入吗？通过实验发现，<code>400.1</code>被改成<code>400</code>，而<code>400.2</code>被改成<code>401</code>，由此看来并非四舍五入，具体实现这边不讨论。所以我们在使用<code>setFrame</code>的时候需要注意提供的参数最后会不会得到我们想要的结果。</p>
-<p>说完了大小，我们来看看坐标，这回我们通过<code>setFrame</code>来改变<code>window</code>的坐标。<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[_window setFrame:<span class="built_in">NSMakeRect</span>(<span class="number">450</span>, <span class="number">250.5</span>, <span class="number">400</span>, <span class="number">300</span>) display:<span class="literal">YES</span>];</div><div class="line">LogRect(<span class="string">@"window.changeOrigin"</span>, _window.frame);</div></pre></td></tr></table></figure></p>
-<p>通过前面的结果，我们想当然的认为结果应该是 <code>(450,251,400,300)</code>。然而事实并非如此，我们看看输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">window.changeOrigin: &#123;450.00,250.00,400.00,301.00&#125;</div></pre></td></tr></table></figure></p>
-<p>相当的意外，坐标没变，而高度却加了<code>1</code>，我们没有改高度的啊。百思不得其解，尝试其它<code>y</code>值看看，然后发现<code>250.9</code>的结果是<code>(450,251,400,300)</code>，<code>250.8</code>的结果是<code>(450,250,400,301)</code>。惊呆了有木有，在此只能劝大家动态计算的时候最好把浮点型转换成整形再传递给<code>setFrame</code>。如果有人知道这是为什么，烦请告知，谢谢！</p>
+        <p><code>iOS</code>和<code>macOS</code>开发中常用<code>PNG</code>文件作为图片资源，我们常使用<code>imageNamed</code>来使用图片资源，一般大家的做法都是让<code>UI</code>切图的时候给三个文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">icon@1x.png</div><div class="line">icon@2x.png</div><div class="line">icon@3x.png</div></pre></td></tr></table></figure>
+<p>但是有时候情况特殊，你只能使用一个文件，比如在<code>Apple Script</code>中使用图片，那怎么办呢，经常接触<code>macOS</code>的人应该都见过<code>TIFF</code></p>
+<blockquote>
+<p>TIFF是一个灵活适应性强的文件格式。通过在文件标头中使用“标签”，它能够在一个文件中处理多幅图像和数据。<br><a href="https://zh.wikipedia.org/wiki/TIFF#.E7.81.B5.E6.B4.BB.E7.9A.84.E9.80.89.E9.A1.B9" target="_blank" rel="external">维基百科</a></p>
+</blockquote>
+<p>注意，<code>TIFF</code>是支持多页的，可以用一个<code>TIFF</code>文件包含上面的三幅图像，那怎么把三张<code>PNG</code>变成一张<code>TIFF</code>呢，我们有<code>ImageMagick</code></p>
+<blockquote>
+<p>ImageMagick是一个用于查看、编辑位图文件以及进行图像格式转换的开放源代码软件套装。它可以读取、编辑超过100种图象格式。<br>ImageMagick最基本的一个功能是准确高效地转换超过68种图片的格式，包括众所周知的TIFF、JPEG、PNG、PDF、PhotoCD，以及GIF。<br><a href="https://zh.wikipedia.org/wiki/ImageMagick#.E6.96.87.E4.BB.B6.E6.A0.BC.E5.BC.8F.E8.BD.AC.E6.8D.A2" target="_blank" rel="external">维基百科</a></p>
+</blockquote>
+<p><code>ImageMagick</code>可以用<a href="https://brew.sh" target="_blank" rel="external">HomeBrew</a>快速安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ brew install imagemagick</div></pre></td></tr></table></figure>
+<p><code>convert</code>是<code>ImageMagick</code>用于转换图片格式的工具</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ convert icon@1x.png icon@2x.png icon@3x.png icon.tiff</div></pre></td></tr></table></figure>
+<p>现在我们获得了<code>icon.tiff</code>这个文件，用自带的预览工具打开即可看到它包含了三幅图像，目标达成！</p>
 
       
     </div>
@@ -414,8 +418,6 @@
           
             <a href="/tags/macOS/" rel="tag"># macOS</a>
           
-            <a href="/tags/objc/" rel="tag"># objc</a>
-          
         </div>
       
 
@@ -427,8 +429,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/nswindow-full-size-content-view/" rel="next" title="让自定义view铺满整个NSWindow">
-                <i class="fa fa-chevron-left"></i> 让自定义view铺满整个NSWindow
+              <a href="/2016/mouse-event/" rel="next" title="鼠标事件响应">
+                <i class="fa fa-chevron-left"></i> 鼠标事件响应
               </a>
             
           </div>
@@ -436,10 +438,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/mouse-event/" rel="prev" title="鼠标事件响应">
-                鼠标事件响应 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -722,7 +720,7 @@
 		_hcwp.push({widget:"Bloggerstream", widget_id: 93321, selector:".hc-comment-count", label: "{\%COUNT%\}" });
 
 		
-		_hcwp.push({widget:"Stream", widget_id: 93321, xid: "2016/nswindow-setframe/"});
+		_hcwp.push({widget:"Stream", widget_id: 93321, xid: "2017/convert-pngs-to-tiff/"});
 		
 
 		(function() {

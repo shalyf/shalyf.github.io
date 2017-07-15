@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://shalyf.github.io/"/>
-  <updated>2017-07-15T04:34:45.000Z</updated>
+  <updated>2017-07-15T15:47:12.000Z</updated>
   <id>https://shalyf.github.io/</id>
   
   <author>
@@ -16,46 +16,87 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>多张PNG图片合并成一张TIFF</title>
+    <link href="https://shalyf.github.io/2017/convert-pngs-to-tiff/"/>
+    <id>https://shalyf.github.io/2017/convert-pngs-to-tiff/</id>
+    <published>2017-07-15T14:30:04.000Z</published>
+    <updated>2017-07-15T15:47:12.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><code>iOS</code>和<code>macOS</code>开发中常用<code>PNG</code>文件作为图片资源，我们常使用<code>imageNamed</code>来使用图片资源，一般大家的做法都是让<code>UI</code>切图的时候给三个文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">icon@1x.png</div><div class="line">icon@2x.png</div><div class="line">icon@3x.png</div></pre></td></tr></table></figure>
+<p>但是有时候情况特殊，你只能使用一个文件，比如在<code>Apple Script</code>中使用图片，那怎么办呢，经常接触<code>macOS</code>的人应该都见过<code>TIFF</code></p>
+<blockquote>
+<p>TIFF是一个灵活适应性强的文件格式。通过在文件标头中使用“标签”，它能够在一个文件中处理多幅图像和数据。<br><a href="https://zh.wikipedia.org/wiki/TIFF#.E7.81.B5.E6.B4.BB.E7.9A.84.E9.80.89.E9.A1.B9" target="_blank" rel="external">维基百科</a></p>
+</blockquote>
+<p>注意，<code>TIFF</code>是支持多页的，可以用一个<code>TIFF</code>文件包含上面的三幅图像，那怎么把三张<code>PNG</code>变成一张<code>TIFF</code>呢，我们有<code>ImageMagick</code></p>
+<blockquote>
+<p>ImageMagick是一个用于查看、编辑位图文件以及进行图像格式转换的开放源代码软件套装。它可以读取、编辑超过100种图象格式。<br>ImageMagick最基本的一个功能是准确高效地转换超过68种图片的格式，包括众所周知的TIFF、JPEG、PNG、PDF、PhotoCD，以及GIF。<br><a href="https://zh.wikipedia.org/wiki/ImageMagick#.E6.96.87.E4.BB.B6.E6.A0.BC.E5.BC.8F.E8.BD.AC.E6.8D.A2" target="_blank" rel="external">维基百科</a></p>
+</blockquote>
+<p><code>ImageMagick</code>可以用<a href="https://brew.sh" target="_blank" rel="external">HomeBrew</a>快速安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ brew install imagemagick</div></pre></td></tr></table></figure>
+<p><code>convert</code>是<code>ImageMagick</code>用于转换图片格式的工具</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ convert icon@1x.png icon@2x.png icon@3x.png icon.tiff</div></pre></td></tr></table></figure>
+<p>现在我们获得了<code>icon.tiff</code>这个文件，用自带的预览工具打开即可看到它包含了三幅图像，目标达成！</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;code&gt;iOS&lt;/code&gt;和&lt;code&gt;macOS&lt;/code&gt;开发中常用&lt;code&gt;PNG&lt;/code&gt;文件作为图片资源，我们常使用&lt;code&gt;imageNamed&lt;/code&gt;来使用图片资源，一般大家的做法都是让&lt;code&gt;UI&lt;/code&gt;切图的时候给三个文件&lt;
+    
+    </summary>
+    
+      <category term="Apple" scheme="https://shalyf.github.io/categories/Apple/"/>
+    
+    
+      <category term="macOS" scheme="https://shalyf.github.io/tags/macOS/"/>
+    
+  </entry>
+  
+  <entry>
     <title>鼠标事件响应</title>
     <link href="https://shalyf.github.io/2016/mouse-event/"/>
     <id>https://shalyf.github.io/2016/mouse-event/</id>
     <published>2016-02-01T05:21:09.000Z</published>
-    <updated>2017-07-15T04:34:45.000Z</updated>
+    <updated>2017-07-15T15:43:37.000Z</updated>
     
     <content type="html"><![CDATA[<p><code>NSResponder</code>提供了鼠标响应事件，而所有的视图都继承自<code>NSResponder</code>，所以我们可以很方便的处理鼠标事件。</p>
-<h2 id="鼠标一般事件"><a href="#鼠标一般事件" class="headerlink" title="鼠标一般事件"></a>鼠标一般事件</h2><p>鼠标一般事件有按下和松开，又有左右键和其它键之分(本文只讲述左右键)，对应的消息如下：</p>
+<h2 id="鼠标一般事件"><a href="#鼠标一般事件" class="headerlink" title="鼠标一般事件"></a>鼠标一般事件</h2><p>鼠标一般事件有按下和松开，又有左右键和其它键之分(本文只讨论左右键)，对应的消息如下：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 按下鼠标左键</span></div><div class="line">- (<span class="keyword">void</span>)mouseDown:(<span class="built_in">NSEvent</span> *)theEvent;</div><div class="line"><span class="comment">// 松开鼠标左键</span></div><div class="line">- (<span class="keyword">void</span>)mouseUp:(<span class="built_in">NSEvent</span> *)theEvent;</div><div class="line"><span class="comment">// 按下鼠标右键</span></div><div class="line">- (<span class="keyword">void</span>)rightMouseDown:(<span class="built_in">NSEvent</span> *)theEvent;</div><div class="line"><span class="comment">// 松开鼠标右键</span></div><div class="line">- (<span class="keyword">void</span>)rightMouseUp:(<span class="built_in">NSEvent</span> *)theEvent;</div></pre></td></tr></table></figure>
 <p>鼠标点击后，<code>NSEvent</code>捕获到的坐标是基于<code>Window</code>的，所以需要经过转换才能使用。</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)mouseDown:(<span class="built_in">NSEvent</span> *)theEvent &#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     *  将mouseDown消息传递给父类</div><div class="line">     *  注意，如果写了这句的话，mouseUp事件将不会触发</div><div class="line">     */</div><div class="line">    [<span class="keyword">super</span> mouseDown:theEvent];</div><div class="line"></div><div class="line">    <span class="comment">// 将鼠标点击位置的坐标从Window转换为当前View，fromView设为nil表示从Window转换</span></div><div class="line">    <span class="built_in">NSPoint</span> location = [<span class="keyword">self</span> convertPoint:theEvent.locationInWindow fromView:<span class="literal">nil</span>];</div><div class="line">    </div><div class="line">    <span class="comment">// doing something</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <a id="more"></a>
 <h2 id="鼠标跟踪事件"><a href="#鼠标跟踪事件" class="headerlink" title="鼠标跟踪事件"></a>鼠标跟踪事件</h2><p>鼠标跟踪是通过定义一个矩形区域，捕获在这个区域内鼠标的进出和移动事件。这个监视区可以在<code>awakeFromNib</code>中用<code>addTrackingArea:</code>方法注册。</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)awakeFromNib &#123;</div><div class="line">    <span class="comment">// 创建监视区</span></div><div class="line">    <span class="built_in">NSTrackingArea</span> *trackingArea = [[<span class="built_in">NSTrackingArea</span> alloc] initWithRect:<span class="keyword">self</span>.bounds options:</div><div class="line">                                   <span class="built_in">NSTrackingMouseMoved</span> |</div><div class="line">                                   <span class="built_in">NSTrackingMouseEnteredAndExited</span> |</div><div class="line">                                   <span class="built_in">NSTrackingActiveAlways</span> owner:<span class="keyword">self</span> userInfo:<span class="literal">nil</span>];</div><div class="line">                                   </div><div class="line">    <span class="comment">// 添加到View中</span></div><div class="line">    [<span class="keyword">self</span> addTrackingArea:trackingArea];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 鼠标进入监视区</span></div><div class="line">- (<span class="keyword">void</span>)mouseEntered:(<span class="built_in">NSEvent</span> *)theEvent;</div><div class="line"><span class="comment">// 鼠标在监视区内移动</span></div><div class="line">- (<span class="keyword">void</span>)mouseMoved:(<span class="built_in">NSEvent</span> *)theEvent</div><div class="line"><span class="comment">// 鼠标推出监视区</span></div><div class="line">- (<span class="keyword">void</span>)mouseExited:(<span class="built_in">NSEvent</span> *)theEvent;</div></pre></td></tr></table></figure>
-<p>然而很多时候我们的<code>View</code>的<code>frame</code>或者<code>bounds</code>是会变化的，变化后在<code>awakeFromNib</code>中注册的监视区就与<code>View</code>不重合了，就会出现事件不会触发或者坐标偏差等现象。这个问题，我一般是通过重写<code>updateTrackingAreas</code>方法来解决，<code>updateTrackingAreas</code>在控件大小或者坐标发生变化的时候会被触发。</p>
+<p>上述代码定义了一个<code>self.bounds</code>的矩形区域，在这个区域内的鼠标事件将被捕获。然而很多时候<code>View</code>的<code>frame</code>和<code>bounds</code>是会变化的，变化后在<code>awakeFromNib</code>中注册的监视区就与<code>View</code>不重合了，就会出现事件不会触发或者坐标偏差等现象。这个问题，可以通过重写<code>updateTrackingAreas</code>方法重新创建监视区来解决，<code>updateTrackingAreas</code>在控件大小或者坐标发生变化的时候会被触发。</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 定义一个变量来存储监视区</span></div><div class="line"><span class="built_in">NSTrackingArea</span> *_trackingArea;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)updateTrackingAreas &#123;</div><div class="line">    [<span class="keyword">super</span> updateTrackingAreas];</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> (_trackingArea) <span class="comment">// 移除久的监视区</span></div><div class="line">        [<span class="keyword">self</span> removeTrackingArea:_trackingArea];</div><div class="line">    </div><div class="line">    <span class="comment">// 创建新的监视区</span></div><div class="line">    _trackingArea = [[<span class="built_in">NSTrackingArea</span> alloc] initWithRect:<span class="keyword">self</span>.bounds options:</div><div class="line">                     <span class="built_in">NSTrackingMouseMoved</span> |</div><div class="line">                     <span class="built_in">NSTrackingMouseEnteredAndExited</span> |</div><div class="line">                     <span class="built_in">NSTrackingActiveAlways</span> owner:<span class="keyword">self</span> userInfo:<span class="literal">nil</span>];</div><div class="line">                     </div><div class="line">    <span class="comment">// 添加到View中</span></div><div class="line">    [<span class="keyword">self</span> addTrackingArea:_trackingArea];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h2 id="鼠标拖拽事件"><a href="#鼠标拖拽事件" class="headerlink" title="鼠标拖拽事件"></a>鼠标拖拽事件</h2><p>鼠标拖拽顾名思义就是鼠标按下后不松开，然后移动鼠标，到目标位置后才松开，这三步完成了一次完整的鼠标拖拽动作。</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 鼠标左键拖拽</span></div><div class="line">- (<span class="keyword">void</span>)mouseDragged:(<span class="built_in">NSEvent</span> *)theEvent;</div><div class="line"><span class="comment">// 鼠标右键拖拽</span></div><div class="line">- (<span class="keyword">void</span>)rightMouseDragged:(<span class="built_in">NSEvent</span> *)theEvent;</div></pre></td></tr></table></figure>
 <p>一次完整的拖拽动作代码是这样的：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">BOOL</span> isDragged = <span class="literal">NO</span>;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)mouseDown:(<span class="built_in">NSEvent</span> *)theEvent &#123;</div><div class="line">    <span class="comment">// 鼠标按下，开始拖拽</span></div><div class="line">    isDragged = <span class="literal">YES</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)mouseDragged:(<span class="built_in">NSEvent</span> *)theEvent &#123;</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> (isDragged) &#123; <span class="comment">// 拖拽中</span></div><div class="line">        </div><div class="line">        <span class="comment">// 这里不转换坐标的原因是setFrameOrigin需要用的就是在Window中的坐标</span></div><div class="line">        <span class="built_in">NSPoint</span> location = theEvent.locationInWindow;</div><div class="line">        </div><div class="line">        <span class="comment">// 改变控件在Window中的位置，当然这只是简单的写法，效果并不是特别好</span></div><div class="line">        [<span class="keyword">self</span> setFrameOrigin:location];</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)mouseUp:(<span class="built_in">NSEvent</span> *)theEvent &#123;</div><div class="line">    <span class="comment">// 鼠标松开，结束拖拽</span></div><div class="line">    isDragged = <span class="literal">NO</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>上面的代码需要三个方法来解决一个问题，还需要外部状态码来控制，有没有更优雅的写法呢？查找苹果文档，发现可以在<code>mouseDown</code>里面监听后面的鼠标事件。</p>
+<p>上面的代码需要三个方法来解决一个问题，还需要外部状态码来控制，有没有更优雅的写法呢？查阅<a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/EventOverview/HandlingMouseEvents/HandlingMouseEvents.html#//apple_ref/doc/uid/10000060i-CH6-SW4" target="_blank" rel="external">苹果文档</a>，发现可以在<code>mouseDown</code>里面循环监听需要的鼠标事件。</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)mouseDown:(<span class="built_in">NSEvent</span> *)theEvent &#123;</div><div class="line"></div><div class="line">    <span class="built_in">BOOL</span> keepOn = <span class="literal">YES</span>;</div><div class="line"></div><div class="line">    <span class="keyword">while</span> (keepOn) &#123;</div><div class="line">        theEvent = [<span class="keyword">self</span>.window nextEventMatchingMask:<span class="built_in">NSLeftMouseUpMask</span> | <span class="built_in">NSLeftMouseDraggedMask</span>];</div><div class="line">        <span class="built_in">NSPoint</span> location = [<span class="keyword">self</span> convertPoint:theEvent.locationInWindow fromView:<span class="literal">nil</span>];</div><div class="line">        <span class="built_in">BOOL</span> isInside = [<span class="keyword">self</span> mouse:location inRect:<span class="keyword">self</span>.bounds];</div><div class="line">        </div><div class="line">        <span class="keyword">switch</span> (theEvent.type) &#123;</div><div class="line">            <span class="keyword">case</span> <span class="built_in">NSLeftMouseUp</span>:</div><div class="line">                keepOn = <span class="literal">NO</span>;</div><div class="line">                </div><div class="line">                <span class="comment">// doing something</span></div><div class="line">                </div><div class="line">                <span class="keyword">if</span> (isInside)</div><div class="line">                    [<span class="keyword">super</span> mouseDown:theEvent];</div><div class="line"></div><div class="line">                <span class="keyword">break</span>;</div><div class="line">                </div><div class="line">            <span class="keyword">case</span> <span class="built_in">NSLeftMouseDragged</span>:</div><div class="line">                <span class="comment">// doing something</span></div><div class="line">                <span class="keyword">break</span>;</div><div class="line"></div><div class="line">            <span class="keyword">default</span>:</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>while</code>创建了一个事件监听循环，通过<code>[NSWindow nextEventMatchingMask:]</code>来监听接下来的<code>NSLeftMouseUpMask</code>(左键抬起)和<code>NSLeftMouseDraggedMask</code>(左键拖动)，在<code>theEvent.type == NSLeftMouseUp</code>的时候将<code>keepOn</code>设置为<code>NO</code>以退出循环结束监听。</p>
+<blockquote>
+<p>注意：使用该方式需要谨慎，尤其是在多个<code>NSView</code>嵌套的时候，容易造成事件混乱。</p>
+</blockquote>
 ]]></content>
     
     <summary type="html">
     
       &lt;p&gt;&lt;code&gt;NSResponder&lt;/code&gt;提供了鼠标响应事件，而所有的视图都继承自&lt;code&gt;NSResponder&lt;/code&gt;，所以我们可以很方便的处理鼠标事件。&lt;/p&gt;
-&lt;h2 id=&quot;鼠标一般事件&quot;&gt;&lt;a href=&quot;#鼠标一般事件&quot; class=&quot;headerlink&quot; title=&quot;鼠标一般事件&quot;&gt;&lt;/a&gt;鼠标一般事件&lt;/h2&gt;&lt;p&gt;鼠标一般事件有按下和松开，又有左右键和其它键之分(本文只讲述左右键)，对应的消息如下：&lt;/p&gt;
+&lt;h2 id=&quot;鼠标一般事件&quot;&gt;&lt;a href=&quot;#鼠标一般事件&quot; class=&quot;headerlink&quot; title=&quot;鼠标一般事件&quot;&gt;&lt;/a&gt;鼠标一般事件&lt;/h2&gt;&lt;p&gt;鼠标一般事件有按下和松开，又有左右键和其它键之分(本文只讨论左右键)，对应的消息如下：&lt;/p&gt;
 &lt;figure class=&quot;highlight objc&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 按下鼠标左键&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;- (&lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt;)mouseDown:(&lt;span class=&quot;built_in&quot;&gt;NSEvent&lt;/span&gt; *)theEvent;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 松开鼠标左键&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;- (&lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt;)mouseUp:(&lt;span class=&quot;built_in&quot;&gt;NSEvent&lt;/span&gt; *)theEvent;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 按下鼠标右键&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;- (&lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt;)rightMouseDown:(&lt;span class=&quot;built_in&quot;&gt;NSEvent&lt;/span&gt; *)theEvent;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 松开鼠标右键&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;- (&lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt;)rightMouseUp:(&lt;span class=&quot;built_in&quot;&gt;NSEvent&lt;/span&gt; *)theEvent;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;鼠标点击后，&lt;code&gt;NSEvent&lt;/code&gt;捕获到的坐标是基于&lt;code&gt;Window&lt;/code&gt;的，所以需要经过转换才能使用。&lt;/p&gt;
 &lt;figure class=&quot;highlight objc&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;11&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;12&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;- (&lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt;)mouseDown:(&lt;span class=&quot;built_in&quot;&gt;NSEvent&lt;/span&gt; *)theEvent &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;/**&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;     *  将mouseDown消息传递给父类&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;     *  注意，如果写了这句的话，mouseUp事件将不会触发&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;     */&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    [&lt;span class=&quot;keyword&quot;&gt;super&lt;/span&gt; mouseDown:theEvent];&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;// 将鼠标点击位置的坐标从Window转换为当前View，fromView设为nil表示从Window转换&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;built_in&quot;&gt;NSPoint&lt;/span&gt; location = [&lt;span class=&quot;keyword&quot;&gt;self&lt;/span&gt; convertPoint:theEvent.locationInWindow fromView:&lt;span class=&quot;literal&quot;&gt;nil&lt;/span&gt;];&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;// doing something&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#125;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
     
     </summary>
     
-      <category term="macOS" scheme="https://shalyf.github.io/categories/macOS/"/>
+      <category term="Apple" scheme="https://shalyf.github.io/categories/Apple/"/>
     
-    
-      <category term="objc" scheme="https://shalyf.github.io/tags/objc/"/>
     
       <category term="macOS" scheme="https://shalyf.github.io/tags/macOS/"/>
+    
+      <category term="objc" scheme="https://shalyf.github.io/tags/objc/"/>
     
   </entry>
   
@@ -64,7 +105,7 @@
     <link href="https://shalyf.github.io/2016/nswindow-setframe/"/>
     <id>https://shalyf.github.io/2016/nswindow-setframe/</id>
     <published>2016-01-25T08:32:05.000Z</published>
-    <updated>2017-07-14T15:33:13.000Z</updated>
+    <updated>2017-07-15T15:06:34.000Z</updated>
     
     <content type="html"><![CDATA[<p>在<code>macOS</code>的开发中，我们一般使用<code>NSWindow</code>的<code>setFrame</code>来改变窗体的坐标和大小，而坐标和大小一般是靠动态计算得出，这里要讲讲<code>setFrame</code>的一些坑。</p>
 <p>我们知道<code>NSRect</code>里的<code>origin</code>和<code>size</code>都是浮点型的，而像素点是整数的，没有说<code>0.5</code>个像素的，真要有<code>0.5</code>像素，在屏幕上的表现要么是<code>0</code>，要么就是<code>1</code>。下面我们来做个小实验：</p>
@@ -85,12 +126,12 @@
     
     </summary>
     
-      <category term="macOS" scheme="https://shalyf.github.io/categories/macOS/"/>
+      <category term="Apple" scheme="https://shalyf.github.io/categories/Apple/"/>
     
-    
-      <category term="objc" scheme="https://shalyf.github.io/tags/objc/"/>
     
       <category term="macOS" scheme="https://shalyf.github.io/tags/macOS/"/>
+    
+      <category term="objc" scheme="https://shalyf.github.io/tags/objc/"/>
     
   </entry>
   
@@ -99,7 +140,7 @@
     <link href="https://shalyf.github.io/2016/nswindow-full-size-content-view/"/>
     <id>https://shalyf.github.io/2016/nswindow-full-size-content-view/</id>
     <published>2016-01-23T06:11:20.000Z</published>
-    <updated>2017-07-14T15:35:34.000Z</updated>
+    <updated>2017-07-15T15:06:29.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="让自定义view铺满整个NSWindow"><a href="#让自定义view铺满整个NSWindow" class="headerlink" title="让自定义view铺满整个NSWindow"></a>让自定义view铺满整个NSWindow</h1><p>我们通过<code>IB</code>拖到窗体中的控件都是放到<code>NSWindow</code>的<code>contentView</code>视图中的，但是这个<code>contentView</code>不是铺满整个<code>window</code>的，顶部会有一个系统风格的<code>titlebarView</code>，现在项目需要让自定义的<code>view</code>可以铺满整个<code>window</code>。<br>在<code>macOS 10.10</code>之前，我们可以通过简单的两行代码来搞定：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//把自定义的view添加到contentView的superview中，也就是NSThemeView</span></div><div class="line"><span class="built_in">NSView</span> *themeView = [window.contentView superview];</div><div class="line">[themeView addSubview:<span class="keyword">self</span>.viewCustom positioned:<span class="built_in">NSWindowBelow</span> relativeTo:<span class="literal">nil</span>];</div></pre></td></tr></table></figure>
@@ -115,12 +156,12 @@
     
     </summary>
     
-      <category term="macOS" scheme="https://shalyf.github.io/categories/macOS/"/>
+      <category term="Apple" scheme="https://shalyf.github.io/categories/Apple/"/>
     
-    
-      <category term="objc" scheme="https://shalyf.github.io/tags/objc/"/>
     
       <category term="macOS" scheme="https://shalyf.github.io/tags/macOS/"/>
+    
+      <category term="objc" scheme="https://shalyf.github.io/tags/objc/"/>
     
   </entry>
   
@@ -129,7 +170,7 @@
     <link href="https://shalyf.github.io/2015/nstableview-highlight-selected-color/"/>
     <id>https://shalyf.github.io/2015/nstableview-highlight-selected-color/</id>
     <published>2015-11-14T09:14:21.000Z</published>
-    <updated>2017-07-15T04:34:54.000Z</updated>
+    <updated>2017-07-15T15:06:24.000Z</updated>
     
     <content type="html"><![CDATA[<p><code>NSTableView</code>和<code>NSOutlineView</code>的显示方式有两种，分别是<code>Cell Based</code>和<code>View Based</code>。前者需要重绘<code>Cell</code>来实现高度自定义；后者可以直接添加控件到<code>View</code>中，用起来比较简单，所以也比较常用。</p>
 <h2 id="Cell-Based"><a href="#Cell-Based" class="headerlink" title="Cell Based"></a>Cell Based</h2><h3 id="覆写NSTableView或着NSOutlineView中的HighlightSelection方法"><a href="#覆写NSTableView或着NSOutlineView中的HighlightSelection方法" class="headerlink" title="覆写NSTableView或着NSOutlineView中的HighlightSelection方法"></a>覆写NSTableView或着NSOutlineView中的HighlightSelection方法</h3><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> ovrride <span class="keyword">void</span> <span class="title">HighlightSelection</span> (<span class="params">RectangleF clipRect</span>)</span></div><div class="line">&#123;</div><div class="line">    NSRange aVisibleRowIndexs = <span class="keyword">this</span>.RowsInRect (clipRect);</div><div class="line">    	</div><div class="line">    NSIndexSet aSelectRowIndexs = <span class="keyword">this</span>.SelectedRows;</div><div class="line">    <span class="keyword">int</span> aRow = aVisibleRowIndexs.Location;</div><div class="line">    <span class="keyword">int</span> aEndRow = aRow + aVisibleRowIndexs.Length;</div><div class="line">    	</div><div class="line">    <span class="comment">// 控制是否获得焦点的颜色</span></div><div class="line">    <span class="comment">// NSGradient gradient;</span></div><div class="line">    <span class="comment">// if (this == this.Window.FirstResponder &amp;&amp; this.Window.IsMainWindow &amp;&amp; this.Window.IsKeyWindow) &#123;</span></div><div class="line">    <span class="comment">//     gradient = new NSGradient (new NSColor[] &#123; TBTheme.ThemeColorWithAlpha (0.5f) &#125;);</span></div><div class="line">    <span class="comment">// &#125; else &#123;</span></div><div class="line">    <span class="comment">//     gradient = new NSGradient (new NSColor[] &#123; TBTheme.ThemeColorWithAlpha (0.8f) &#125;);</span></div><div class="line">    <span class="comment">// &#125;</span></div><div class="line">    	</div><div class="line">    <span class="keyword">for</span> (; arow &lt; aEndRow; aRow++) &#123;</div><div class="line">        <span class="keyword">if</span> (aSelectRowIndexs.Contains ((<span class="keyword">uint</span>)aRow)) &#123;</div><div class="line">            RectangleF aRowRect = <span class="keyword">this</span>.RectForRow (aRow);</div><div class="line">            TBTheme.LightThemeColor.Set ();</div><div class="line">            NSGraphics.RectFill (aRowRect);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -148,14 +189,12 @@
     
     </summary>
     
-      <category term="macOS" scheme="https://shalyf.github.io/categories/macOS/"/>
+      <category term="Mono" scheme="https://shalyf.github.io/categories/Mono/"/>
     
     
       <category term="macOS" scheme="https://shalyf.github.io/tags/macOS/"/>
     
-      <category term="mono" scheme="https://shalyf.github.io/tags/mono/"/>
-    
-      <category term="Xamarin" scheme="https://shalyf.github.io/tags/Xamarin/"/>
+      <category term="C#" scheme="https://shalyf.github.io/tags/C/"/>
     
   </entry>
   
@@ -164,7 +203,7 @@
     <link href="https://shalyf.github.io/2015/nsoutlineview-drag-drop/"/>
     <id>https://shalyf.github.io/2015/nsoutlineview-drag-drop/</id>
     <published>2015-11-13T06:11:20.000Z</published>
-    <updated>2017-07-15T04:35:28.000Z</updated>
+    <updated>2017-07-15T15:05:53.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="NSOutlineView实现拖拽功能"><a href="#NSOutlineView实现拖拽功能" class="headerlink" title="NSOutlineView实现拖拽功能"></a>NSOutlineView实现拖拽功能</h2><h3 id="注册拖拽类型"><a href="#注册拖拽类型" class="headerlink" title="注册拖拽类型"></a>注册拖拽类型</h3><p>在<code>OutlineView</code>的<code>AwakeFromNib</code>中注册</p>
 <figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">AwakeFromNib</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">base</span>.AwakeFromNib();</div><div class="line">    </div><div class="line">    <span class="keyword">this</span>.RegisterForDraggedTypes (<span class="keyword">new</span> <span class="keyword">string</span>[] &#123;</div><div class="line">        NSPasteboard.NSFilenamesType.ToString (),</div><div class="line">        NSPasteboard.NSUrlType.ToString (),</div><div class="line">        NSPasteboard.NSDragPasteboardName.ToString (),</div><div class="line">        NSPasteboard.NSStringType.ToString (),</div><div class="line">        NSPasteboard.NSFilesPromiseType.ToString ()</div><div class="line">    &#125;);</div><div class="line">    </div><div class="line">    <span class="keyword">this</span>.SetDraggingSourceOperationMask (NSDragOperation.All, <span class="literal">false</span>);</div><div class="line">    <span class="keyword">this</span>.AllowsMultipleSelection = <span class="literal">true</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -193,14 +232,12 @@
     
     </summary>
     
-      <category term="macOS" scheme="https://shalyf.github.io/categories/macOS/"/>
+      <category term="Mono" scheme="https://shalyf.github.io/categories/Mono/"/>
     
     
       <category term="macOS" scheme="https://shalyf.github.io/tags/macOS/"/>
     
-      <category term="mono" scheme="https://shalyf.github.io/tags/mono/"/>
-    
-      <category term="Xamarin" scheme="https://shalyf.github.io/tags/Xamarin/"/>
+      <category term="C#" scheme="https://shalyf.github.io/tags/C/"/>
     
   </entry>
   
