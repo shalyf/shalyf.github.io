@@ -1,0 +1,837 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Monaco:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="mono,macOS,Xamarin," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Easher' Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="NSOutlineView实现拖拽功能注册拖拽类型在OutlineView的AwakeFromNib中注册 public override void AwakeFromNib () {     base.AwakeFromNib ();      this.RegisterForDraggedTypes (new string[] {         NSPasteboard.NSFilename">
+<meta name="keywords" content="mono,macOS,Xamarin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mono中各个控件的拖拽实现">
+<meta property="og:url" content="https://shalyf.github.io/2015/11/13/nsoutlineview-drag-drop/index.html">
+<meta property="og:site_name" content="Easher&#39; Blog">
+<meta property="og:description" content="NSOutlineView实现拖拽功能注册拖拽类型在OutlineView的AwakeFromNib中注册 public override void AwakeFromNib () {     base.AwakeFromNib ();      this.RegisterForDraggedTypes (new string[] {         NSPasteboard.NSFilename">
+<meta property="og:updated_time" content="2017-07-15T03:39:20.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mono中各个控件的拖拽实现">
+<meta name="twitter:description" content="NSOutlineView实现拖拽功能注册拖拽类型在OutlineView的AwakeFromNib中注册 public override void AwakeFromNib () {     base.AwakeFromNib ();      this.RegisterForDraggedTypes (new string[] {         NSPasteboard.NSFilename">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://shalyf.github.io/2015/11/13/nsoutlineview-drag-drop/"/>
+
+
+
+
+
+  <title> Mono中各个控件的拖拽实现 | Easher' Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Easher' Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://shalyf.github.io/2015/11/13/nsoutlineview-drag-drop/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Easher">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Easher' Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Mono中各个控件的拖拽实现
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-11-13T14:11:20+08:00">
+                2015-11-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/macOS/" itemprop="url" rel="index">
+                    <span itemprop="name">macOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="NSOutlineView实现拖拽功能"><a href="#NSOutlineView实现拖拽功能" class="headerlink" title="NSOutlineView实现拖拽功能"></a>NSOutlineView实现拖拽功能</h2><h3 id="注册拖拽类型"><a href="#注册拖拽类型" class="headerlink" title="注册拖拽类型"></a>注册拖拽类型</h3><p>在<code>OutlineView</code>的<code>AwakeFromNib</code>中注册</p>
+<pre><code class="cs"><span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">AwakeFromNib</span> (<span class="params"></span>)
+</span>{
+    <span class="keyword">base</span>.AwakeFromNib ();
+
+    <span class="keyword">this</span>.RegisterForDraggedTypes (<span class="keyword">new</span> <span class="keyword">string</span>[] {
+        NSPasteboard.NSFilenamesType.ToString (),
+        NSPasteboard.NSUrlType.ToString (),
+        NSPasteboard.NSDragPasteboardName.ToString (),
+        NSPasteboard.NSStringType.ToString (),
+        NSPasteboard.NSFilesPromiseType.ToString ()
+    });
+
+    <span class="keyword">this</span>.SetDraggingSourceOperationMask (NSDragOperation.All, <span class="literal">false</span>);
+    <span class="keyword">this</span>.AllowsMultipleSelection = <span class="literal">true</span>;
+}
+</code></pre>
+<p><code>RegisterForDraggedTypes</code>注册拖动类型，仅有注册的类型才能完成控件内的拖动（有拖动特效），如果是要拖动到控件以外的地方，则可以不用注册。<br><code>SetDraggingSourceOperationMask</code>设置拖动源操作，没有设置的话将不会呼起必须的拖动方法，特别注意第二个参数，置为<code>true</code>表示拖动只能在控件内，置为<code>false</code>表示可以拖动到控件以外。如果需要拖动到桌面等其他文件夹，一定要置为<code>false</code>。</p>
+<h3 id="实现OutlineViewwriteItemstoPasteboard方法（在DataSource中）"><a href="#实现OutlineViewwriteItemstoPasteboard方法（在DataSource中）" class="headerlink" title="实现OutlineViewwriteItemstoPasteboard方法（在DataSource中）"></a>实现OutlineViewwriteItemstoPasteboard方法（在DataSource中）</h3><pre><code class="cs"><span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">bool</span> <span class="title">OutlineViewwriteItemstoPasteboard</span> (<span class="params">NSOutlineView outlineView, NSArray items, NSPasteboard pboard</span>)
+</span>{
+    pboard.DeclareTypes (<span class="keyword">new</span> <span class="keyword">string</span>[] {
+    NSPasteboard.NSFilesPromiseType.ToString () }, <span class="literal">null</span>);
+    <span class="keyword">string</span>[] types = <span class="keyword">new</span> <span class="keyword">string</span>[<span class="number">1</span>] { <span class="string">""</span> };
+    NSArray list = NSArray.FromStrings (types);
+    pboard.SetPropertyListForType (list, NSPasteboard.NSFilesPromiseType.ToString ());
+    <span class="keyword">return</span> <span class="literal">true</span>;
+}
+</code></pre>
+<p>其中<code>pboard.DeclareTypes</code>声明拖拽类型。<br><code>pboard.SetStringForType</code>或<code>pboard.SetDataForType</code>设置拖动的内容。案例使用<code>SetPropertyListForType</code>为粘贴板设置一个列表内容。<br>当拖动类型为<code>NSPasteboard.NSFilenamesType</code>时，<code>list</code>中存储的<code>url</code>必须是针对本机有效的，如果用了无效的<code>url</code>，将无法完成拖动。<br>当拖动类型为<code>NSPasteboard.NSFilesPromiseType</code>时，<code>list</code>可以随便填，但是不能为空，该方法还没有完全理透，不过已经可以通过这个方法来获取目标<code>Url</code>。使用这种拖动类型将会呼起<code>FilesDropped</code>方法，通过该方法就能获得目标<code>Url</code>。</p>
+<h3 id="实现DragImage方法（在控件中，需要重写控件，也可以不实现，使用父类方法）"><a href="#实现DragImage方法（在控件中，需要重写控件，也可以不实现，使用父类方法）" class="headerlink" title="实现DragImage方法（在控件中，需要重写控件，也可以不实现，使用父类方法）"></a>实现DragImage方法（在控件中，需要重写控件，也可以不实现，使用父类方法）</h3><pre><code class="cs"><span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">DragImage</span> (<span class="params">NSImage anImage, PointF viewLocation, SizeF initialOffset, NSEvent theEvent, NSPasteboard pboard, NSObject sourceObj, <span class="keyword">bool</span> slideFlag</span>)
+</span>{
+    anImage = NSWorkspace.SharedWorkspace.IconForFile (<span class="string">"/Applications/Tongbu.app"</span>);
+    viewLocation = <span class="keyword">this</span>.ConvertPointFromView (theEvent.LocationInWindow, <span class="literal">null</span>);
+    viewLocation.X -= <span class="number">16</span>;
+    viewLocation.Y -= <span class="number">16</span>;
+
+    <span class="keyword">base</span>.DragImage (anImage, viewLocation, initialOffset, theEvent, pboard, sourceObj, slideFlag);
+}
+</code></pre>
+<p><code>anImage</code>设置拖动时显示的图标，<code>viewLocation</code>设置图标显示的位置。<br>然后调用父类的<code>DragImage</code>方法完成。</p>
+<h3 id="实现FilesDropped方法（在DataSource中）"><a href="#实现FilesDropped方法（在DataSource中）" class="headerlink" title="实现FilesDropped方法（在DataSource中）"></a>实现FilesDropped方法（在DataSource中）</h3><p>使用<code>NSPasteboard.NSFilesPromiseType</code>拖动类型时触发<br>如果拖动源不是本机有效的<code>Url</code>，使用<code>NSPasteboard.NSFilenamesType</code>是不允许拖动的，这时候就要用到<code>NSPasteboard.NSFilesPromiseType</code>了。</p>
+<pre><code class="cs"><span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">string</span>[] <span class="title">FilesDropped</span> (<span class="params">NSOutlineView outlineView, NSUrl dropDestination, NSArray items</span>)
+</span>{
+    Console.WriteLine (<span class="string">"dropDestination = "</span> + dropDestination.Path);
+    <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">string</span>[] { <span class="string">""</span> } ;
+}
+</code></pre>
+<p><code>dropDestination</code>为目标<code>Url</code>，获取该<code>Url</code>，就能通过其他手段将需要的文件复制到目的地了。</p>
+<h2 id="NSBrowser实现拖拽功能"><a href="#NSBrowser实现拖拽功能" class="headerlink" title="NSBrowser实现拖拽功能"></a>NSBrowser实现拖拽功能</h2><p>知道了<code>NSOutlinView</code>的拖拽实现，<code>NSBrowser</code>也就简单了，只需要找到触发拖动的事件和完成拖动的事件，实现它们就可以了。</p>
+<h3 id="注册拖拽类型（同NSOutlineView）"><a href="#注册拖拽类型（同NSOutlineView）" class="headerlink" title="注册拖拽类型（同NSOutlineView）"></a>注册拖拽类型（同NSOutlineView）</h3><h3 id="实现WriteRowsWithIndexesToPasteboard方法（在Delegate中）"><a href="#实现WriteRowsWithIndexesToPasteboard方法（在Delegate中）" class="headerlink" title="实现WriteRowsWithIndexesToPasteboard方法（在Delegate中）"></a>实现WriteRowsWithIndexesToPasteboard方法（在Delegate中）</h3><pre><code>public override bool WriteRowsWithIndexesToPasteboard (NSBrowser browser, NSIndexSet rowIndexes, int column, NSPasteboard pasteboard)
+{
+    string[] temp = new string[1]{&quot;&quot;};
+    NSArray fileList = NSArray.FromStrings (temp);
+    pasteboard.DeclareTypes (new string[] { NSPasteboard.NSFilesPromiseType.ToString() }, null);
+    pasteboard.SetPropertyListForType (fileList, NSPasteboard.NSFilesPromiseType.ToString());
+    return true;
+}
+</code></pre><h3 id="实现DragImage方法（同NSOutlineView）"><a href="#实现DragImage方法（同NSOutlineView）" class="headerlink" title="实现DragImage方法（同NSOutlineView）"></a>实现DragImage方法（同NSOutlineView）</h3><h3 id="实现PromisedFilesDroppedAtDestination方法（在Delegate中）"><a href="#实现PromisedFilesDroppedAtDestination方法（在Delegate中）" class="headerlink" title="实现PromisedFilesDroppedAtDestination方法（在Delegate中）"></a>实现PromisedFilesDroppedAtDestination方法（在Delegate中）</h3><pre><code class="cs"><span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">string</span>[] <span class="title">PromisedFilesDroppedAtDestination</span> (<span class="params">NSBrowser browser, NSUrl dropDestination, NSIndexSet rowIndexes, <span class="keyword">int</span> column</span>)
+</span>{
+    Console.WriteLine (<span class="string">"dropDestination = "</span> + dropDestination.Path);
+    Console.WriteLine (rowIndexes.ToString());
+    <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">string</span>[]{<span class="string">""</span>} ;
+}
+</code></pre>
+<h2 id="IKImageBrowserView实现拖拽功能"><a href="#IKImageBrowserView实现拖拽功能" class="headerlink" title="IKImageBrowserView实现拖拽功能"></a>IKImageBrowserView实现拖拽功能</h2><p>写入粘贴板的方法与<code>NSTableView</code>类似，使用<code>WriteItemsToPasteboard</code><br>完成拖动的方法因为<code>Mono</code>没有实现<code>PromisedFilesDroppedAtDestination</code>方法，需要映射。</p>
+<pre><code class="cs">[<span class="meta">Export (<span class="meta-string">"namesOfPromisedFilesDroppedAtDestination: "</span>)</span>]
+<span class="function">Public <span class="keyword">string</span>[] <span class="title">NamesOfPromisedFliesDroppedAtDestination</span> (<span class="params">NSUrl dropDestination</span>)
+</span>{
+    Console.WriteLine (<span class="string">"dropDestination = "</span> + dropDestination.Path);
+    <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">string</span>[]{<span class="string">""</span>} ;
+}
+</code></pre>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/mono/" rel="tag"># mono</a>
+          
+            <a href="/tags/macOS/" rel="tag"># macOS</a>
+          
+            <a href="/tags/Xamarin/" rel="tag"># Xamarin</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/11/14/nstableview-highlight-selected-color/" rel="prev" title="NSTableView 和 NSOutlineView 修改选中高亮颜色">
+                NSTableView 和 NSOutlineView 修改选中高亮颜色 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="Easher" />
+          <p class="site-author-name" itemprop="name">Easher</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/shalyf" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/shalyf" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#NSOutlineView实现拖拽功能"><span class="nav-number">1.</span> <span class="nav-text">NSOutlineView实现拖拽功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#注册拖拽类型"><span class="nav-number">1.1.</span> <span class="nav-text">注册拖拽类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现OutlineViewwriteItemstoPasteboard方法（在DataSource中）"><span class="nav-number">1.2.</span> <span class="nav-text">实现OutlineViewwriteItemstoPasteboard方法（在DataSource中）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现DragImage方法（在控件中，需要重写控件，也可以不实现，使用父类方法）"><span class="nav-number">1.3.</span> <span class="nav-text">实现DragImage方法（在控件中，需要重写控件，也可以不实现，使用父类方法）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现FilesDropped方法（在DataSource中）"><span class="nav-number">1.4.</span> <span class="nav-text">实现FilesDropped方法（在DataSource中）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSBrowser实现拖拽功能"><span class="nav-number">2.</span> <span class="nav-text">NSBrowser实现拖拽功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#注册拖拽类型（同NSOutlineView）"><span class="nav-number">2.1.</span> <span class="nav-text">注册拖拽类型（同NSOutlineView）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现WriteRowsWithIndexesToPasteboard方法（在Delegate中）"><span class="nav-number">2.2.</span> <span class="nav-text">实现WriteRowsWithIndexesToPasteboard方法（在Delegate中）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现DragImage方法（同NSOutlineView）"><span class="nav-number">2.3.</span> <span class="nav-text">实现DragImage方法（同NSOutlineView）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现PromisedFilesDroppedAtDestination方法（在Delegate中）"><span class="nav-number">2.4.</span> <span class="nav-text">实现PromisedFilesDroppedAtDestination方法（在Delegate中）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IKImageBrowserView实现拖拽功能"><span class="nav-number">3.</span> <span class="nav-text">IKImageBrowserView实现拖拽功能</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-github"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Easher</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
